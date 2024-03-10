@@ -1,4 +1,5 @@
 import 'package:dynamic_render/model.dart';
+import 'package:dynamic_render/widgets/date_field.dart';
 import 'package:dynamic_render/widgets/gender_field.dart';
 import 'package:dynamic_render/widgets/text_field.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +31,11 @@ renderFields() {
         GenderSwitch(
           options: element.options!,
           onchanged: (p0) {
-            
+            if(p0){
+              res[element.questionKey] = element.options![0];
+            } else {
+              res[element.questionKey] = element.options![1];
+            }
           },
         ),
       );
@@ -45,6 +50,12 @@ renderFields() {
             res[element.questionKey] = value;
           },
         ),
+      );
+    } else if(element.valueType == "date"){
+      widgets.add(
+        DateField(onchanged: (date){
+          res[element.questionKey] = date.toIso8601String();
+        }),
       );
     }
   });

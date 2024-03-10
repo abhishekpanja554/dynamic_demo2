@@ -9,9 +9,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final _formKey = GlobalKey<FormState>();  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(onPressed: (){
+        _formKey.currentState!.save();
+        print(res);
+      }),
       appBar: AppBar(
         title: const Text("Json render demo"),
         backgroundColor: Colors.cyanAccent,
@@ -21,8 +26,11 @@ class _HomeScreenState extends State<HomeScreen> {
           height: constraints.maxHeight,
           width: constraints.maxWidth,
           padding: EdgeInsets.symmetric(horizontal: 16),
-          child: ListView(
-            children: renderFields(),
+          child: Form(
+            key: _formKey,
+            child: ListView(
+              children: renderFields(),
+            ),
           ),
         );
       }),

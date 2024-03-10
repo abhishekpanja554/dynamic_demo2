@@ -25,9 +25,9 @@ class _CustomTextFieldOutlineState extends State<CustomTextFieldOutline> {
   late TextEditingController controller;
 
   void _onChange(String value) {
-    controller.text = value;
+    // controller.text = value;
     if (widget.onChange != null) {
-      widget.onChange!(value);
+      widget.onChange!(controller.text);
     }
   }
 
@@ -47,9 +47,14 @@ class _CustomTextFieldOutlineState extends State<CustomTextFieldOutline> {
   Widget build(BuildContext context) {
     return TextFormField(
       // obscureText: showPassword,
-      controller: widget.controller,
-      onChanged: (value) => _onChange,
+      // controller: widget.controller,
+      // onChanged: (value) => _onChange,
       keyboardType: widget.keyboardType,
+      onSaved: (newValue) {
+        if (widget.onChange != null) {
+          widget.onChange!(newValue!);
+        }
+      },
       decoration: InputDecoration(
         hintText: widget.hintText,
         labelText: widget.label,
