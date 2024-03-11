@@ -9,11 +9,23 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final _formKey = GlobalKey<FormState>();  
+  final _formKey = GlobalKey<FormState>();
+  List<Widget> formList = [];
+  @override
+  void initState() {
+    getFormList();
+    super.initState();
+  }
+
+  getFormList() async {
+    formList = await renderFields();
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(onPressed: (){
+      floatingActionButton: FloatingActionButton(onPressed: () {
         _formKey.currentState!.save();
         print(res);
       }),
@@ -21,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
         title: const Text("Json render demo"),
         backgroundColor: Colors.cyanAccent,
       ),
-      body: LayoutBuilder(builder: (context, constraints){
+      body: LayoutBuilder(builder: (context, constraints) {
         return Container(
           height: constraints.maxHeight,
           width: constraints.maxWidth,
@@ -29,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Form(
             key: _formKey,
             child: ListView(
-              children: renderFields(),
+              children: formList,
             ),
           ),
         );

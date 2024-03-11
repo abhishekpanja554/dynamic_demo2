@@ -38,6 +38,7 @@ dependencies:
   dynamic_widget: ^5.0.0
   json_annotation: ^4.8.1
   date_field: ^4.0.1
+  dio: ^5.4.1
 
 dev_dependencies:
   flutter_test:
